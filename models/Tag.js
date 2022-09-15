@@ -8,7 +8,7 @@ Tag.init(
   {
     id: {
       type: DataTypes.INTEGER,
-      allowNule: false,
+      allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },

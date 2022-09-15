@@ -1,22 +1,43 @@
 const router = require('express').Router();
+// const { UPSERT } = require('sequelize/types/lib/query-types');
 const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
 
 // get all products
-router.get('/', (req, res) => {
-  // find all products
-  // be sure to include its associated Category and Tag data
+// find all products
+// be sure to include its associated Category and Tag data
+router.get('/', async (req, res) => {
+try{
+  const findAllProducts = await Product.findAll({
+    include: [{model: Category}, {model: Tag}]
+  });
+  res.status(200).json(findAllProducts)
+}catch (error) {
+  res.status(500).json(error.message)
+}
 });
 
 // get one product
-router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+// find a single product by its `id`
+// be sure to include its associated Category and Tag data
+router.get('/:id', async (req, res) => {
+  try{
+    const oneProductData = await Product.findByPk(req.params.id,{
+      include: [{model: Category}, {model: Tag}]
+    });
+    if (!oneProductData) {
+      res.status(404).json({message: 'No product found with this id'});
+      return;
+    }
+    res.status(200).json(oneProductData);
+  }catch (error){
+    res.status(500).json(error.message)
+  }
 });
 
 // create new product
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   /* req.body should look like this...
     {
       product_name: "Basketball",
@@ -89,8 +110,22 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
-  // delete one product by its `id` value
+// delete one product by its `id` value
+router.delete('/:id', async (req, res) => {
+  try{
+    const productToBeDeleted = await Product.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!productToBeDeleted) {
+      res.status(404).json({message: 'No product found with this id'});
+      return;
+    }
+    res.status(200).json(productToBeDeleted);
+  }catch(error) {
+    res.status(500).json(error.message);
+  }
 });
 
 module.exports = router;
