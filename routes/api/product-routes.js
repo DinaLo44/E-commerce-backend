@@ -7,30 +7,30 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 // find all products
 // be sure to include its associated Category and Tag data
 router.get('/', async (req, res) => {
-try{
-  const findAllProducts = await Product.findAll({
-    include: [{model: Category}, {model: Tag}]
-  });
-  res.status(200).json(findAllProducts)
-}catch (error) {
-  res.status(500).json(error.message)
-}
+  try {
+    const findAllProducts = await Product.findAll({
+      include: [{ model: Category }, { model: Tag }]
+    });
+    res.status(200).json(findAllProducts)
+  } catch (error) {
+    res.status(500).json(error.message)
+  }
 });
 
 // get one product
 // find a single product by its `id`
 // be sure to include its associated Category and Tag data
 router.get('/:id', async (req, res) => {
-  try{
-    const oneProductData = await Product.findByPk(req.params.id,{
-      include: [{model: Category}, {model: Tag}]
+  try {
+    const oneProductData = await Product.findByPk(req.params.id, {
+      include: [{ model: Category }, { model: Tag }]
     });
     if (!oneProductData) {
-      res.status(404).json({message: 'No product found with this id'});
+      res.status(404).json({ message: 'No product found with this id' });
       return;
     }
     res.status(200).json(oneProductData);
-  }catch (error){
+  } catch (error) {
     res.status(500).json(error.message)
   }
 });
@@ -111,18 +111,21 @@ router.put('/:id', (req, res) => {
 
 // delete one product by its `id` value
 router.delete('/:id', async (req, res) => {
-  try{
+  try {
     const productToBeDeleted = await Product.destroy({
       where: {
         id: req.params.id,
       },
     });
     if (!productToBeDeleted) {
-      res.status(404).json({message: 'No product found with this id'});
+      res.status(404).json({ message: 'No product found with this id' });
       return;
     }
-    res.status(200).json(productToBeDeleted);
-  }catch(error) {
+    res.status(200).json({
+      message: "Product successfully deleted",
+      productToBeDeleted
+    });
+  } catch (error) {
     res.status(500).json(error.message);
   }
 });
