@@ -8,7 +8,7 @@ The user needs to access the database through MySQL with the commands "mysql -u 
 With this application, the user will be able to create new categories, products and tags, and read, update and delete existing categories, products and tags. The user will be able to perform those actions rapidly and efficiently. 
 
 # Technologies
-The technologies used to build this application are MySQL, JavaScript, Node.js, Insomnia, and the dependencies MySQL2, Express, Dotenv and Sequelize.
+The technologies used to build this application are MySQL, JavaScript, Insomnia, and the dependencies MySQL2, Express, Dotenv and Sequelize.
 
 # Demo video link
 In order to see the whole application's functionality, please click on the following link:
