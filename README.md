@@ -12,7 +12,7 @@ The technologies used to build this application are MySQL, JavaScript, Insomnia,
 
 # Demo video link
 In order to see the whole application's functionality, please click on the following link:
-
+https://drive.google.com/file/d/1MBhUpG6sz21vhqttVVbePhgrl-4ZN2gF/view
 
 # GitHub repository link
 https://github.com/DinaLo44/E-commerce-backend
